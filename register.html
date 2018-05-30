@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>注册1号店</title>
+		<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+	</head>
+	<body>
+		<!--登录注册页面头部-->
+		<div id="loginTop">
+			<div class="loginlogo">
+				<a href="index.html"><img src="img/loginlogo.jpg"/></a>
+			</div>
+			<div class="logintopright">
+				<div class="welcome">
+					<span>您好，欢迎光临1号店！</span>
+					<a href="login.html">请登录</a>
+				</div>
+				<div class="helpcenter">
+					<div class="helpmenu">
+						<span class="glyphicon glyphicon-globe" style="font-size: 14px;"></span><a class="kefu" href="#">帮助中心</a><span class="glyphicon glyphicon-collapse-down"></span>
+						<ul class="helplist">
+							<li><a href="#">包裹跟踪</a></li>
+							<li><a href="#">常见问题</a></li>
+							<li><a href="#">在线退换货</a></li>
+							<li><a href="#">在线投诉</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--注册界面内容-->
+		<div id="register">
+			<div class="registercontent">
+				<div class="registerinfo">
+					<h3>1号店注册</h3>
+					<div class="registername">
+						<label for="rgstname">用户名</label>
+						<input type="text" id="rgstname"/>
+						<span class="tips">
+							4-20位字符，可由中文、英文、数字或符号“_”组成
+						</span>
+						<span class="dager">
+							用户名不能为空
+						</span>
+						<span class="err">
+							请输入正确的用户名
+						</span>
+					</div>
+					<div class="registerphone">
+						<label for="rgstphone">手机号</label>
+						<input type="text" id="rgstphone"/>
+						<span class="tips">
+							请填写正确的手机号，以便接收订单通知和修改密码
+						</span>
+						<span class="dager">
+							手机号不能为空
+						</span>
+						<span class="err">
+							请输入正确的手机号
+						</span>
+					</div>
+					<div class="registerpsw">
+						<label for="rgstpsw">设置密码</label>
+						<input type="text" id="rgstpsw"/>
+						<span class="tips">
+							6-20个大小写英文字母、符号或数字的组合
+						</span>
+						<span class="dager">
+							密码不能为空
+						</span>
+					</div>
+					<div class="repeatpassword">
+						<label for="repeatpsw">确认密码</label>
+						<input type="text" id="repeatpsw"/>
+						<span class="tips">
+							请再次输入密码
+						</span>
+					</div>
+					<p class="shengming">点击注册，表示您同意1号店 <a href="#">《服务协议及隐私声明》</a></p>
+					<input type="button" id="registerbtn" value="同意协议并注册" />
+				</div>
+			</div>
+		</div>
+		<!--登录注册页面底部-->
+		<div id="loginFooter">
+			<div class="footercontent">
+				<ul>
+					<li><a href="#">沪ICP备16050468号</a></li>
+					<li>沪B2-20170039</li>
+					<li style="border: 0;"><a href="#">营业执照</a></li>
+				</ul>
+				<p>Copyright © 1号店网上超市 2007-2017，All Rights Reserved</p>
+			</div>
+		</div>
+	</body>
+	<script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</html>

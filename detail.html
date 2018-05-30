@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>商品详情页</title>
+		<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+	</head>
+	<body>
+		<!--头部-->
+		<header>
+			<div class="headercontent">
+				<span id="songhuodizhi">
+					<em class="	glyphicon glyphicon-map-marker"></em>送货地址 : <b>上海</b>
+				</span>
+				<div class="hd_right">
+					<div class="login">
+						<a class="denglu" href="login.html">Hi,请登录</a>
+						<a class="zhuce" href="register.html">注册</a>
+					</div>
+					<div class="mydingdan">
+						<a class="dingdan" href="#">我的订单</a>
+					</div>
+					<div class="fuwu_menu">
+						<a class="" href="#">客户服务<em class="glyphicon glyphicon-chevron-down"></em></a>
+						<div class="fuwu_list">
+							<a href="#">包裹跟踪</a>
+							<a href="#">在线退换货</a>
+						</div>
+					</div>
+					<div class="downapp">
+						<em class="glyphicon glyphicon-phone"></em> APP下载
+						<div class="erweima">
+							<span>扫描二维码</span>
+							<em>下载一号店APP</em>
+							<img src="img/qryhd.png"/>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</header>
+		
+		<!--搜索框-->
+		<div id="search">
+			<div class="searchcontent">
+				<div class="logo">
+					<a href="index.html"><img src="img/logo.gif"/></a>
+				</div>
+				<div class="searchbar">
+					<div class="searchbox">
+						<div class="searchwrap">
+							<input type="text" id="searchtxt" placeholder="权益大升级，好劵限时抢" />
+							<button type="button" id="searchbtn"><span class="glyphicon glyphicon-search"></span></button>
+						</div>
+						
+						<a href="#" class="shopcart">
+							 <span class="glyphicon glyphicon-shopping-cart"></span>
+							 <b>购物车</b>
+						</a>
+						<div class="searchhot">
+							<a href="#">咖啡</a>
+							<a href="#">西式糕点</a>
+							<a href="#">男装</a>
+							<a href="#">保鲜膜</a>
+							<a href="#">纸品湿巾</a>
+							<a href="#">三只松鼠</a>
+							<a href="#">薯片膨化</a>
+							<a href="#">水</a>
+							<a href="#">纯牛奶</a>
+							<a href="#">电风扇</a>
+						</div>
+					</div>
+					<ul class="searchmenu">
+						<li><a href="#">1号抢购</a></li>
+						<li><a href="#">1号团</a></li>
+						<li><a href="#">领劵中心</a></li>
+						<li><a href="#">捡便宜</a></li>
+						<li><a href="#">全球进口</a></li>
+						<li><a href="#">1号生鲜</a></li>
+						<li><a href="#">美妆馆</a></li>
+						<li><a href="#">家居馆</a></li>
+						<li><a href="#">电器城</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<!--商品详情-->
+		<div id="details">
+			<div class="detailcontent">
+				<div class="detailimg">
+					<div class="probox">
+				        <img src="img/coca.jpg" alt="">
+				        <div class="hoverbox"></div>
+				    </div>
+				    <div class="showbox">
+				        <img src="img/coca.jpg" alt="">
+				    </div>
+				</div>
+				<div class="addshop">
+					<div class="addshoptit">
+						<h3><span>自营</span>标题标题</h3>
+						<span class="gouwujie"><img src="img/addshopimg.png"/></span>
+						<p><span>价格</span>￥99.99</p>
+						<span class="youhuiquan"><a href="#">领取优惠券</a></span>
+					</div>
+					<div class="shopcart">
+						<div class="addbox">
+							<input type="text" id="addshopnum" value="1" />
+							<input type="button" id="addnum" value="▲" />
+							<input type="button" id="reduce" value="▼" />
+						</div>
+						<input type="button" id="addbtn" value="加入购物车" />
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!--底部-->
+		<div id="footer">
+			<div class="footerwrap">
+				<a href="#">
+					<img src="img/zhengpin.png"/>
+					<h4>正品保障</h4>
+					<p>正品行货 放心选购</p>
+				</a>
+				<a href="#">
+					<img src="img/zhengpin.png"/>
+					<h4>满86包邮</h4>
+					<p>满86元 免运费</p>
+				</a>
+				<a href="#">
+					<img src="img/zhengpin.png"/>
+					<h4>售后无忧</h4>
+					<p>7天无理由退货</p>
+				</a>
+				<a href="#">
+					<img src="img/zhengpin.png"/>
+					<h4>准时送达</h4>
+					<p>收货时间由你做主</p>
+				</a>
+			</div>
+			<div class="servicewrap">
+				<div class="serviceleft">
+					<dl class="servicelist">
+						<dt>新手入门</dt>
+						<dd><a href="#">购物流程</a></dd>
+						<dd><a href="#">会员制度</a></dd>
+						<dd><a href="#">订单查询</a></dd>
+						<dd><a href="#">发票制度</a></dd>
+						<dd><a href="">网站地图</a></dd>
+					</dl>
+					<dl class="servicelist">
+						<dt>支付方式</dt>
+						<dd><a href="#">购物流程</a></dd>
+						<dd><a href="#">会员制度</a></dd>
+						<dd><a href="#">订单查询</a></dd>
+						<dd><a href="#">发票制度</a></dd>
+					</dl>
+					<dl class="servicelist">
+						<dt>配送服务</dt>
+						<dd><a href="#">购物流程</a></dd>
+						<dd><a href="#">会员制度</a></dd>
+					</dl>
+					<dl class="servicelist">
+						<dt>售后保障</dt>
+						<dd><a href="#">发票制度</a></dd>
+						<dd><a href="#">网站地图</a></dd>
+					</dl>
+				</div>
+				<div class="serviceright">
+					<div class="apperweima">
+						<p>APP更优惠</p>
+						<img src="img/wxerweima.jpg"/>
+					</div>
+					<div class="apperweima">
+						<p>加微信查订单</p>
+						<img src="img/wxerweima.jpg"/>
+					</div>
+				</div>
+			</div>
+			<div class="dibu">
+				<div class="link">
+					<a href="#" style="border: 0;">沪ICP备16050468号</a>
+					<a href="#">经营证照</a>
+					<a href="#">违法和不良信息举报电话：0527-88100253</a>
+					<a href="#">沪B2-20170039</a>
+					<a href="#">出版物经营许可证</a>
+				</div>
+				<p>Copyright© 1号店网上超市 2007-2017，All Rights Reserved</p>
+				<div class="linkimg">
+					<img src="img/wanggoupinglun.jpg"/>
+					<img src="img/wanggoupinglun.jpg"/>
+					<img src="img/wanggoupinglun.jpg"/>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</html>

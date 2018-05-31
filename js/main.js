@@ -1,4 +1,3 @@
-
 $(function(){
 	
 	$("#imgli li").eq(0).show();
@@ -42,8 +41,6 @@ $(function(){
     })
     
     //抢购
-    
-    
 	$.get("http://h6.duchengjiu.top/shop/api_goods.php",function(data){
 //			console.log(data);
   			var remen = data.data;
@@ -110,7 +107,6 @@ $(function(){
 			</li>`
   			
   			$("#ranklist").append(str2);
-  			var oA = document.getElementById("ranklistcontent");
   			$.get("http://h6.duchengjiu.top/shop/api_goods.php",function(ab){
 //				console.log(ab);
 	  			var b = ab.data;
@@ -124,7 +120,7 @@ $(function(){
 						</a>
 						</li>`
 	  			}
-	  			oA.innerHTML = str3;
+	  			$("#ranklistcontent").html("").append(str3);
   			})
   	})
     	
@@ -140,7 +136,7 @@ $(function(){
 	  			var str4 = "";
 	  			for(var i = 0;i < p.length;i++){
 	  				str4 += `<div class="shoplist">
-							<a href="detail.html">
+							<a  href="detail.html?good_id=${p[i].goods_id}">
 								<dl>
 									<dt>
 										<img src="${p[i].goods_thumb}"/>
@@ -273,14 +269,114 @@ $(function(){
   			
   		})
     
-    
-    //登录界面
-	$(".helpmenu").mouseover(function(){
-		$(".helpmenu").css({"border":"1px solid #999","height":"127px"});
-		$(".helpmenu").mouseout(function(){
-			$(".helpmenu").css({"border":"0","height":"25px"});
-		})
-	});
+    //商品详情页
+    var detailshop = "";
+    var shop_id = location.href;
+    shop_id = shop_id.split("=");
+//  console.log(shop_id);
+    $.get("http://h6.duchengjiu.top/shop/api_goods.php",{goods_id:shop_id[1]},function(p){
+//  	console.log(p);
+    	$("#addbtn").click(function(){
+	    	setCookie(shop_id[1],detailshopnum,7);
+	    	location.href = "shopcart.html";
+	    })
+    	detailshop = `<div class="detailimg">
+					<div class="probox">
+				        <img src="${p.data[0].goods_thumb}" alt="">
+				        <div class="hoverbox"></div>
+				    </div>
+				    <div class="showbox">
+				        <img src="${p.data[0].goods_thumb}" alt="">
+				    </div>
+				</div>
+				<div class="addshop">
+					<div class="addshoptit">
+						<h3><span>自营</span>${p.data[0].goods_name}</h3>
+						<span class="gouwujie"><img src="img/addshopimg.png"/></span>
+						<p><span>价格</span>￥${p.data[0].price}</p>
+						<span class="youhuiquan"><a href="#">领取优惠券</a></span>
+					</div>
+				</div>`
+    	$("#detailcontent").html("").append(detailshop);
+    	
+    })
+    var detailshopnum = Number($("#addshopnum").val());
+    $("#addnum").click(function(){
+    	var oAdd = document.getElementById("addshopnum");    
+    	detailshopnum = detailshopnum + 1;
+    	oAdd.value = detailshopnum;
+//  	console.log(detailshopnum);
+    	if(detailshopnum == 99){
+    		$("#addnum").attr({"disabled":"disabled"});
+    		$("#addnum").css("background","#CCCCCC");
+    	}
+    });
+    $("#reduce").click(function(){
+    	var oAdd = document.getElementById("addshopnum");    
+    	detailshopnum = detailshopnum - 1;
+    	oAdd.value = detailshopnum;
+//  	console.log(detailshopnum);
+    	if(detailshopnum <= 0){
+    		detailshopnum = 1;
+    	}else{
+    		$("#reduce").removeAttr("disabled");
+    	}
+    });
+//  $("#addbtn").click(function(){
+//  	setCookie("shopNum",detailshopnum,7);
+//  	location.href = "shopcart.html?good_id=${p[i].goods_id}";
+//  })
+//	console.log(document.cookie);
+	var shopcookie = document.cookie;
+	shopcookie = shopcookie.split(";");
+//	console.log(shopcookie);
+	var cookiename = [];
+	var cookievalue = [];
+	var money = 0;
+	var jianshu = 0;
+	var gwc = "";
+	for(let w = 0;w < shopcookie.length;w++){
+		cookiename.push(shopcookie[w].split("=")[0]);
+		cookievalue.push(shopcookie[w].split("=")[1]);
+		if(Boolean(Number(cookiename[w]))){
+//			console.log(cookiename[w],cookievalue[w]);
+			$.get("http://h6.duchengjiu.top/shop/api_goods.php",{goods_id:cookiename[w]},function(cz){
+//				console.log(cz.data[0]);
+				//购物车
+				var xiaoji = (cz.data[0].price)*cookievalue[w];
+				console.log(xiaoji);
+				gwc += `<div class="shopbox">
+				<div class="selectbox">
+					<input type="checkbox" name="selectshop" id="selectshop" value="" checked="checked"/>
+				</div>
+				<div class="shopitem">
+					<img src="${cz.data[0].goods_thumb}"/>
+					<p>${cz.data[0].goods_name}</p>
+				</div>
+				<div class="shopnnumact">
+					<span class="jianshao">-</span>
+					<input type="text" name="shopnumactive" class="shopnumactive" value="${cookievalue[w]}" />
+					<span class="zengjia">+</span>
+				</div>
+				<span class="shoppricenum">￥${xiaoji}</span>
+				<span class="delectbtn">×</span>
+				</div>`
+				$("#shopwrap").html("").append(gwc);
+				money += xiaoji;
+				$("#paynum").html(money);
+				jianshu += Number(cookievalue[w]);
+				$("#shopselectnum").html(jianshu);
+				var shopjianshu = $(".shopnumactive").val();
+				$(".zengjia").click(function(){
+					shopjianshu = shopjianshu + 1;
+    				shopjianshu.value = shopjianshu;
+				})
+			});
+		}
+	}
+//	console.log(cookiename,cookievalue);
+	
+	
 	
 	
 	
@@ -318,7 +414,7 @@ function Zoom(detailimg, hoverbox, l, t, x, y, h_w, h_h, showbox) {
     //确定位置
 
 }
-
+var detailimg = $(".detailimg");
 function Zoomhover(detailimg, hoverbox, showbox) {
     var l = detailimg.offset().left;
     var t = detailimg.offset().top;
@@ -349,8 +445,213 @@ function Zoomhover(detailimg, hoverbox, showbox) {
 	})
 	
 	//注册
+	var oRgname = document.getElementById("rgstname");
+	var oRgphone = document.getElementById("rgstphone");
+	var oRgpsw = document.getElementById("rgstpsw");
+	var oRepeatpsw = document.getElementById("repeatpsw");
+	var oRgbtn = document.getElementById("registerbtn");
+	
+	$("#rgstname").keyup(function(){
+		if(oRgname.value == ""){
+			$(".registername .tips").css("display","block");
+			$("#registerbtn").attr({"disabled":"disabled"});
+		}
+		var reg = /^[a-zA-Z0-9_-]{3,20}$/;
+		if(!reg.test(oRgname.value)){
+			$(".registername .tips").css("display","block");
+			$("#registerbtn").attr({"disabled":"disabled"});
+		}else{
+			$(".registername .tips").css("display","none");
+			$(".registername .danger").css("display","none");
+			$("#registerbtn").removeAttr("disabled");
+		}
+	});
+	
+	$("#rgstphone").keyup(function(){
+		if(oRgphone.value == ""){
+			$(".registerphone .tips").css("display","block");
+		}
+		var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+		if(!reg.test(oRgphone.value)){
+			$(".registerphone .tips").css("display","block");
+		}else{
+			$(".registerphone .tips").css("display","none");
+			$(".registerphone .danger").css("display","none");
+		}
+	});
+	
+	$("#rgstpsw").keyup(function(){
+		if(oRgphone.value == ""){
+			$(".registerpsw .tips").css("display","block");
+			$("#registerbtn").attr({"disabled":"disabled"});
+		}
+		var reg = /^[a-zA-Z0-9_-]{6,20}$/;
+		if(!reg.test(oRgpsw.value)){
+			$(".registerpsw .tips").css("display","block");
+			$("#registerbtn").attr({"disabled":"disabled"});
+		}else{
+			$(".registerpsw .tips").css("display","none");
+			$(".registerpsw .danger").css("display","none");
+			$("#registerbtn").removeAttr("disabled");
+		}
+	});
+	
+	$("#repeatpsw").keyup(function(){
+		if(oRepeatpsw.value == oRgpsw.value){
+			$(".repeatpassword .danger").css("display","none");
+			$(".repeatpassword .tips").css("display","none");
+		}else{
+			$(".repeatpassword .tips").css("display","block");
+		}
+	});
+	
+	
 	$("#rgstname").focus(function(){
 		$(".registername").css("border-color","red");
+		$(".registername .tips").css("display","block");
+		$(".labelname").animate({left:"-70px"},500);
+	})
+	$("#rgstname").blur(function(){
+		$(".registername").css("border-color","#999999");
+		$(".registername .tips").css("display","none");
+		if(oRgname.value == ""){
+			$(".registername .danger").css("display","block");
+		}
+		var reg = /^[a-zA-Z0-9_-]{3,20}$/;
+		if(!reg.test(oRgname.value)){
+			$(".registername .tips").css("display","block");
+		}else{
+			$(".registername .tips").css("display","none");
+			$(".registername .danger").css("display","none");
+		}
 	})
 	
+	$("#rgstphone").focus(function(){
+		$(".registerphone").css("border-color","red");
+		$(".registerphone .tips").css("display","block");
+		$(".labelphone").animate({left:"-70px"},500);
+	})
+	$("#rgstphone").blur(function(){
+		$(".registerphone").css("border-color","#999999");
+		$(".registerphone .tips").css("display","none");
+		if(oRgphone.value == ""){
+			$(".registerphone .danger").css("display","block");
+		}else{
+			$(".registerphone .danger").css("display","none");
+		}
+		var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+		if(!reg.test(oRgphone.value)){
+			$(".registerphone .tips").css("display","block");
+		}else{
+			$(".registerphone .tips").css("display","none");
+			$(".registerphone .danger").css("display","none");
+		}
+	})
+	
+	$("#rgstpsw").focus(function(){
+		$(".registerpsw").css("border-color","red");
+		$(".registerpsw .tips").css("display","block");
+		$(".labelpsw").animate({left:"-80px"},500);
+		$("#rgstpsw").animate({left:"-15px"},100);
+	})
+	$("#rgstpsw").blur(function(){
+		$(".registerpsw").css("border-color","#999999");
+		$(".registerpsw .tips").css("display","none");
+		if(oRgpsw.value == ""){
+			$(".registerpsw .danger").css("display","block");
+		}else{
+			$(".registerpsw .danger").css("display","none");
+		}
+	})
+	
+	$("#repeatpsw").focus(function(){
+		$(".repeatpassword").css("border-color","red");
+		$(".repeatpassword .tips").css("display","block");
+		$(".labelrep").animate({left:"-80px"},500);
+		$("#repeatpsw").animate({left:"-15px"},100);
+	})
+	$("#repeatpsw").blur(function(){
+		$(".repeatpassword").css("border-color","#999999");
+		$(".repeatpassword .tips").css("display","none");
+	})
+	
+	$("#registerbtn").click(function(){
+//		console.log("aa");
+		var zcname = oRgname.value;
+		var zcpassword = oRgpsw.value;
+		console.log(zcname,zcpassword);
+		$.post("http://h6.duchengjiu.top/shop/api_user.php",{status:"register",username:zcname,password:zcpassword},function(r){
+//			console.log(r);
+			alert(r.message);
+			if(r.code == 0){
+				location.href = "login.html";
+			}
+		})
+	})
+	
+//登录界面
+	
+	$(".helpmenu").mouseover(function(){
+		$(".helpmenu").css({"border":"1px solid #999","height":"127px"});
+		$(".helpmenu").mouseout(function(){
+			$(".helpmenu").css({"border":"0","height":"25px"});
+		})
+	});
+
+	$("#loginbtn").click(function(){
+		var oName = $("#yonghuming").val();
+		var oPassword = $("#pasw").val();
+		
+		$.post("http://h6.duchengjiu.top/shop/api_user.php",{status:"login",username:oName,password:oPassword},function(l){
+			console.log(l);
+			setCookie("username",oName,7);
+			setCookie("password",oPassword,7);
+			
+			if(l.code == 0){
+				location.href = "index.html";
+			}
+			
+		});
+	});
+	
+	
+	
 })
+	
+//主页登录
+if(getCookie("username")){
+	$("#dl").html("Hi~!"+getCookie("username"));
+	$("#nihao").html("欢迎回来！"+getCookie("username"));
+	$("#per_dl").remove();
+	$("#per_zc").remove();
+	$("#zc").html("退出").click(function(){
+		removeCookie("username");
+		removeCookie("password");
+	}).prop("href","login.html");
+}
+	
+	
+//Cookie
+function setCookie(name, value, n) {
+	var oDate = new Date();
+	oDate.setDate(oDate.getDate() + n);
+	document.cookie = name + "=" + value + ";expires=" + oDate + ";path=/";
+}
+
+function getCookie(name) {
+	var str = document.cookie;
+	var arr = str.split("; ");
+	for(var i = 0; i < arr.length; i++) {
+		var newArr = arr[i].split("=");
+		if(newArr[0] === name) {
+			return newArr[1];
+		}
+	}
+}
+
+function removeCookie(name) {
+	setCookie(name, 1, -1);
+}
+
+
+
